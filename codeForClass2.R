@@ -28,14 +28,16 @@ dbListTables(con)
 # get table data
 dbReadTable(con, "mtcars")
 
+identical(dbReadTable(con, "mtcars"),mtcars)
 
 # remove
-dbRemoveTable(con,"tran")
+dbRemoveTable(con,"mtcars")
 dbListTables(con)
 
 
 # you can write table from file directly.
 system.time(dbWriteTable(con, "member", "./recomen/membership.csv",row.names=F))
+
 
 
 ## get data
@@ -57,7 +59,7 @@ customer<-read_csv("./recomen/customer.csv")
 item<-read_csv("./recomen/item.csv")
 membership<-read_csv("./recomen/membership.csv")
 tran<-read_csv("./recomen/tran.csv")
-
+feb<-read_csv("./recomen/feb.csv")
 
 ## head
 
@@ -67,7 +69,7 @@ customer
 item
 membership
 tran
-
+feb
 
 ## control print row count
 
@@ -93,7 +95,7 @@ summary(customer)
 summary(item)
 summary(membership)
 summary(tran)
-
+summary(feb)
 
 ## get data structure
 
@@ -111,12 +113,15 @@ str(tran)
 ## set Mysql with google cloud
 
 # user<-"root"
-# pw<-"XXXXXXXXXXXXXXXX"
-# host<-'XXX.XXX.XXX.XXX'
+# pw<-""
+# host<-'104.198.251.229'
 
-# save(user,pw,host,file ="./gsql.RData")
+save(user,pw,host,file ="./gsql.RData")
+rm(pw)
+rm(host)
 
 load("./gsql.RData")
+
 
 library(RMySQL)
 con <- dbConnect(MySQL(),
@@ -125,8 +130,8 @@ con <- dbConnect(MySQL(),
                  host = host,
                  dbname = "recom")
 dbListTables(conn = con)
-dbWriteTable(conn = con, name = 'tran', value = "./recomen/tran.csv")
-dbReadTable(conn = con, name = "Test")
+dbWriteTable(conn = con, name = 'feb', value = "./recomen/feb.csv")
+dbReadTable(conn = con, name = "feb")
 
 ## for bigquery query
 
