@@ -113,7 +113,7 @@ str(tran)
 ## set Mysql with google cloud
 
 # user<-"root"
-# pw<-"c2CyyedzwDsJ2xD0"
+# pw<-""
 # host<-'104.198.251.229'
 
 save(user,pw,host,file ="./gsql.RData")
